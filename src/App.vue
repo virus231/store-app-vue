@@ -1,12 +1,25 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <h1>Hello Vue</h1>
+    <vMainWrapper></vMainWrapper>
   </div>
 </template>
+
+
+
+<script>
+import vMainWrapper from './components/v-main-wrapper'
+
+
+export default {
+  name: 'app',
+  components: {
+    vMainWrapper
+  }
+}
+
+</script>
+
 
 <style>
 #app {
