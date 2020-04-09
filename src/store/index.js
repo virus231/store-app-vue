@@ -6,12 +6,30 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: []
-
+    products: [],
+    cart: []
   },
   mutations: {
     SET_PRODUCT_TO_STATE: (state, products) => {
       state.products = products
+    },
+    SET_CART: (state, product) => {
+      if(state.cart.length) {
+        let isProductExist = false;
+        state.cart.map(function(item) {
+          if(item.article === product.article) {
+            isProductExist = true
+            item.quantity++
+          }else {
+            state.cart.push(product)
+          }
+        })
+      }else {
+        state.cart.push(product)
+      }
+    },
+    REMOVE_FROM_CART: (state, index) => {
+      state.cart.splice(index, 1)
     }
   },
   actions: {
@@ -23,11 +41,20 @@ export default new Vuex.Store({
           commit('SET_PRODUCT_TO_STATE', products.data)
           return products
       });
+    },
+    ADD_TO_CART({commit}, product) {
+      commit('SET_CART', product)
+    },
+    DELETE_FROM_CART({commit}, index) {
+      commit('REMOVE_FROM_CART', index)
     }
   },
   getters: {
     PRODUCTS(state) {
       return state.products
-    } 
+    },
+    CART(state) {
+      return state.cart
+    }
   }
 })
