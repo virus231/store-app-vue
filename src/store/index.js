@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    cart: []
+    cart: [] 
   },
   mutations: {
     SET_PRODUCT_TO_STATE: (state, products) => {
@@ -24,6 +24,9 @@ export default new Vuex.Store({
             state.cart.push(product)
           }
         })
+          if(!isProductExist) {
+            state.cart.push(product)
+          }
       }else {
         state.cart.push(product)
       }
